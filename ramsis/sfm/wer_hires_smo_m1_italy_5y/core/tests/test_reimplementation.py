@@ -1,12 +1,12 @@
 """
-Test script used for regression testing of EM1 model
+Test script used for regression testing of WerHiResSmoM1Italy5y model
 """
 
 import os
 import pandas as pd
 import unittest
 from datetime import datetime, timedelta
-from ramsis.sfm.em1.core import em1_model as e
+from ramsis.sfm.wer_hires_smo_m1_italy_5y.core import wer_hires_smo_m1_italy_5y_model as e
 
 
 # A stand alone test is recommended for the model itself,
@@ -21,7 +21,7 @@ dirpath = os.path.dirname(os.path.abspath(__file__))
 # Insert test code
 # transform data as the model_adaptor would, and call the
 # required function in the model code.
-# For a real test, see the EM1 implementation test of the same name.
+# For a real test, see the WerHiResSmoM1Italy5y implementation test of the same name.
 
 ###
 # Test code
@@ -29,7 +29,7 @@ dirpath = os.path.dirname(os.path.abspath(__file__))
 
 
 # Run test and test results against comparison files
-class EM1Output(unittest.TestCase):
+class WerHiResSmoM1Italy5yOutput(unittest.TestCase):
 
     def setUp(self):
         self.allowed_error = 1e-3

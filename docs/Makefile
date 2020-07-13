@@ -5,7 +5,7 @@
 # from the environment for the first two.
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
-SPHINXPROJ    = EM1
+SPHINXPROJ    = WerHiResSmoM1Italy5y
 SOURCEDIR     = .
 BUILDDIR      = _build
 

@@ -7,7 +7,7 @@ from marshmallow import fields
 from ramsis.sfm.worker.parser import ModelParameterSchemaBase, \
     create_sfm_worker_imessage_schema, UTCDateTime
 
-# Note: Update all instances of EM1, em1 including the directory and import
+# Note: Update all instances of WerHiResSmoM1Italy5y, wer_hires_smo_m1_italy_5y including the directory and import
 # names to your model abbreviation.
 #
 # This file contains the model specific parameters or data that are not
@@ -22,15 +22,15 @@ from ramsis.sfm.worker.parser import ModelParameterSchemaBase, \
 # This is not a requirement, but it is helpful for distinction.
 
 
-class EM1ModelParameterSchema(ModelParameterSchemaBase):
+class WerHiResSmoM1Italy5yModelParameterSchema(ModelParameterSchemaBase):
 
-    em1_training_magnitude_bin = fields.Float()
-    em1_training_epoch_duration = fields.Float()
-    em1_end_training = UTCDateTime('utc_isoformat')
-    em1_training_events_threshold = fields.Integer()
-    em1_threshold_magnitude = fields.Float()
-    em1_return_subgeoms = fields.Boolean()
+    wer_hires_smo_m1_italy_5y_training_magnitude_bin = fields.Float()
+    wer_hires_smo_m1_italy_5y_training_epoch_duration = fields.Float()
+    wer_hires_smo_m1_italy_5y_end_training = UTCDateTime('utc_isoformat')
+    wer_hires_smo_m1_italy_5y_training_events_threshold = fields.Integer()
+    wer_hires_smo_m1_italy_5y_threshold_magnitude = fields.Float()
+    wer_hires_smo_m1_italy_5y_return_subgeoms = fields.Boolean()
 
 
 SFMWorkerIMessageSchema = create_sfm_worker_imessage_schema(
-    model_parameters_schema=EM1ModelParameterSchema)
+    model_parameters_schema=WerHiResSmoM1Italy5yModelParameterSchema)

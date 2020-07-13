@@ -1,10 +1,10 @@
 # Copyright 2018, ETH Zurich - Swiss Seismological Service SED
 """
 =====================
-RAMSIS EM1 SFM-Worker
+RAMSIS WerHiResSmoM1Italy5y SFM-Worker
 =====================
 
-RT-RAMSIS seismicity forcast model worker (SFM-Worker) implementing the EM1
+RT-RAMSIS seismicity forcast model worker (SFM-Worker) implementing the WerHiResSmoM1Italy5y
 model. Historically the model was known as both SaSS (Shapiro and Smoothed
 Seismicity) - E. Kiraly and SST - A. Mignan.
 """

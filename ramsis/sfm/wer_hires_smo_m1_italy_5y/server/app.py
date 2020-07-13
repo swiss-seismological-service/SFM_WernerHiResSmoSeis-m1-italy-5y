@@ -1,6 +1,6 @@
 # Copyright 2018, ETH Zurich - Swiss Seismological Service SED
 """
-RAMSIS EM1 SFM-Worker implementation.
+RAMSIS WerHiResSmoM1Italy5y SFM-Worker implementation.
 """
 
 import argparse
@@ -12,8 +12,8 @@ import multiprocessing
 
 from ramsis.utils.app import CustomParser, App, AppError
 from ramsis.utils.error import Error, ExitCode
-from ramsis.sfm.em1 import __version__, settings
-from ramsis.sfm.em1.server import create_app
+from ramsis.sfm.wer_hires_smo_m1_italy_5y import __version__, settings
+from ramsis.sfm.wer_hires_smo_m1_italy_5y.server import create_app
 from ramsis.sfm.worker import settings as global_settings
 from ramsis.sfm.worker.utils import escape_newline, url
 
@@ -74,9 +74,9 @@ def model_defaults(config_dict):
     return retval
 
 
-class EM1WorkerWebservice(App):
+class WerHiResSmoM1Italy5yWorkerWebservice(App):
     """
-    A webservice implementing the EM1 (Shapiro and Smothed Seismicity) model.
+    A webservice implementing the WerHiResSmoM1Italy5y (Shapiro and Smothed Seismicity) model.
     """
     VERSION = __version__
 
@@ -90,11 +90,11 @@ class EM1WorkerWebservice(App):
         """
         parser = CustomParser(
             prog="ramsis-sfm-worker-sass",
-            description='Launch EM1 worker webservice.',
+            description='Launch WerHiResSmoM1Italy5y worker webservice.',
             parents=parents)
         # optional arguments
         parser.add_argument('-p', '--port', metavar='PORT', type=int,
-                            default=settings.RAMSIS_WORKER_EM1_PORT,
+                            default=settings.RAMSIS_WORKER_WerHiResSmoM1Italy5y_PORT,
                             help='server port')
         parser.add_argument('--model-defaults', metavar='DICT',
                             type=model_defaults, dest='model_defaults',
@@ -161,19 +161,19 @@ class EM1WorkerWebservice(App):
 # ----------------------------------------------------------------------------
 def main():
     """
-    main function for EM1 model worker webservice
+    main function for WerHiResSmoM1Italy5y model worker webservice
     """
     # Spawn required instead of default fork for logging
     # to work. This is because plain forking copies logging locks
     # in an acquired state, leading to deadlocked processes.
     multiprocessing.set_start_method('spawn')
-    app = EM1WorkerWebservice(log_id='RAMSIS-SFM-EM1')
+    app = WerHiResSmoM1Italy5yWorkerWebservice(log_id='RAMSIS-SFM-WerHiResSmoM1Italy5y')
 
     try:
         app.configure(
             global_settings.PATH_RAMSIS_WORKER_CONFIG,
             positional_required_args=['db_url'],
-            config_section=settings.RAMSIS_WORKER_EM1_CONFIG_SECTION)
+            config_section=settings.RAMSIS_WORKER_WerHiResSmoM1Italy5y_CONFIG_SECTION)
     except AppError as err:
         # handle errors during the application configuration
         print('ERROR: Application configuration failed "%s".' % err,

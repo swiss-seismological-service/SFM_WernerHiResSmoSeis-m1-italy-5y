@@ -11,21 +11,21 @@ available as a sister repository.
 
 Follow the installation instructions of the `ramsis.sfm.worker` (gitlab name) or
 `ATLS_model_worker_base` (github name) namespace package.
-You will want to rename the directory `'em1'` and other instances where this tag appears
+You will want to rename the directory `'wer_hires_smo_m1_italy_5y'` and other instances where this tag appears
 to what your chosen model name is (no spaces of course).
 
 Each file that requires alteration should contain instructions on what to alter.
 I would go through the following files in order, renaming the model as required:
 
-* ramsis/sfm/em1/schema.py (model specific inputs defined)
-* ramsis/sfm/em1/settings.py (defaults defined)
-* ramsis/sfm/em1/server/model_adaptor.py (data conversions, formatting and further validation)
-* ramsis/sfm/em1/core/utils.py (utililty functions used by model_adaptor)
-* ramsis/sfm/em1/core/em1_model.py (actual model code should go here)
-* ramsis/sfm/em1/core/error.py (error classes defined)
-* ramsis/sfm/em1/tests/test_reimplementation.py (write tests)
-* ramsis/sfm/em1/server/v1/routes.py (api configuration)
-* ramsis/sfm/em1/server/app.py (app is defined, renaming required)
+* ramsis/sfm/wer_hires_smo_m1_italy_5y/schema.py (model specific inputs defined)
+* ramsis/sfm/wer_hires_smo_m1_italy_5y/settings.py (defaults defined)
+* ramsis/sfm/wer_hires_smo_m1_italy_5y/server/model_adaptor.py (data conversions, formatting and further validation)
+* ramsis/sfm/wer_hires_smo_m1_italy_5y/core/utils.py (utililty functions used by model_adaptor)
+* ramsis/sfm/wer_hires_smo_m1_italy_5y/core/wer_hires_smo_m1_italy_5y_model.py (actual model code should go here)
+* ramsis/sfm/wer_hires_smo_m1_italy_5y/core/error.py (error classes defined)
+* ramsis/sfm/wer_hires_smo_m1_italy_5y/tests/test_reimplementation.py (write tests)
+* ramsis/sfm/wer_hires_smo_m1_italy_5y/server/v1/routes.py (api configuration)
+* ramsis/sfm/wer_hires_smo_m1_italy_5y/server/app.py (app is defined, renaming required)
 * setup.py
 * README.md
 * Any __init__.py files that contain the model name
@@ -38,7 +38,7 @@ Once you are happy to try out the package, invoke:
 $ pip install -e .
 ```
 
-Postman tests were setup for the EM1 API, these can be imported from a json file under
+Postman tests were setup for the WerHiResSmoM1Italy5y API, these can be imported from a json file under
 /pm and modified. These API tests are quite useful for end-to-end testing of the API
 as well as trying different input parameters in a user friendly way.
 

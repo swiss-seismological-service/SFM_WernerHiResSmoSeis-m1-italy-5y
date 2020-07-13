@@ -15,15 +15,15 @@ import sys
 sys.path.insert(0, os.path.abspath('../'))
 #sys.path.insert(0, os.path.abspath('../ramsis'))
 #sys.path.insert(0, os.path.abspath('../ramsis/sfm'))
-#sys.path.insert(0, os.path.abspath('../ramsis/sfm/em1'))
+#sys.path.insert(0, os.path.abspath('../ramsis/sfm/wer_hires_smo_m1_italy_5y'))
 #print sys.path
-#import ramsis.sfm.em1
-#print(dir(ramsis.sfm.em1.core.utils))
+#import ramsis.sfm.wer_hires_smo_m1_italy_5y
+#print(dir(ramsis.sfm.wer_hires_smo_m1_italy_5y.core.utils))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'EM1'
+project = 'WerHiResSmoM1Italy5y'
 copyright = '2019, Laura Sarson'
 author = 'Laura Sarson'
 
@@ -61,7 +61,7 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 
 # General information about the project.
-project = 'EM1'
+project = 'WerHiResSmoM1Italy5y'
 copyright = '2019, SED'
 author = 'SED'
 
@@ -120,7 +120,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'em1doc'
+htmlhelp_basename = 'wer_hires_smo_m1_italy_5ydoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -147,7 +147,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'EM1.tex', 'EM1 Documentation',
+    (master_doc, 'WerHiResSmoM1Italy5y.tex', 'WerHiResSmoM1Italy5y Documentation',
      'SED', 'manual'),
 ]
 
@@ -157,7 +157,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'EM1', 'EM1 Documentation',
+    (master_doc, 'WerHiResSmoM1Italy5y', 'WerHiResSmoM1Italy5y Documentation',
      [author], 1)
 ]
 
@@ -168,8 +168,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'EM1', 'EM1 Documentation',
-     author, 'EM1', 'One line description of project.',
+    (master_doc, 'WerHiResSmoM1Italy5y', 'WerHiResSmoM1Italy5y Documentation',
+     author, 'WerHiResSmoM1Italy5y', 'One line description of project.',
      'Miscellaneous'),
 ]
 

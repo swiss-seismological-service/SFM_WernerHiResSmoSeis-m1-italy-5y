@@ -1,6 +1,6 @@
 # Copyright 2018, ETH Zurich - Swiss Seismological Service SED
 """
-EM1 model adaptor facilities.
+WerHiResSmoM1Italy5y model adaptor facilities.
 """
 import traceback
 from collections import ChainMap
@@ -12,24 +12,24 @@ from ramsis.sfm.worker.utils.misc import subgeoms_for_single_result,\
     single_reservoir_result, transform
 from ramsis.sfm.worker.model_adaptor import (ModelAdaptor as _ModelAdaptor,
                                              ModelError, ModelResult)
-from ramsis.sfm.em1.core.utils import obspy_catalog_parser, hydraulics_parser
-from ramsis.sfm.em1.core import em1_model
+from ramsis.sfm.wer_hires_smo_m1_italy_5y.core.utils import obspy_catalog_parser, hydraulics_parser
+from ramsis.sfm.wer_hires_smo_m1_italy_5y.core import wer_hires_smo_m1_italy_5y_model
 
 # Example of a model adaptor. This takes inputs from the base worker
 # and converts data to something the model can consume. Further validations
 # can also be done here.
 
 # Subclassing of Error class, modify as required.
-class EM1Error(ModelError):
-    """Base EM1 model error ({})."""
+class WerHiResSmoM1Italy5yError(ModelError):
+    """Base WerHiResSmoM1Italy5y model error ({})."""
 
-class ValidationError(EM1Error):
+class ValidationError(WerHiResSmoM1Italy5yError):
     """ValidationError ({})."""
 
 
 class ModelAdaptor(_ModelAdaptor):
     """
-    EM1 model implementation running the EM1 model code. The class wraps up
+    WerHiResSmoM1Italy5y model implementation running the WerHiResSmoM1Italy5y model code. The class wraps up
     model specifc code providing a unique interface.
 
     :param str reservoir_geometry: Reservoir geometry used by default.
@@ -40,7 +40,7 @@ class ModelAdaptor(_ModelAdaptor):
 
     LOGGER = 'ramsis.sfm.worker.model_adaptor'
 
-    NAME = 'EM1'
+    NAME = 'WerHiResSmoM1Italy5y'
     DESCRIPTION = 'Shapiro and Smoothed Seismicity'
 
     def __init__(self, **kwargs):
@@ -67,7 +67,7 @@ class ModelAdaptor(_ModelAdaptor):
         ####
         # Validations on data
         try:
-            end_training = model_config['em1_end_training']
+            end_training = model_config['wer_hires_smo_m1_italy_5y_end_training']
         except KeyError:
             end_training = model_config['datetime_start']
 
@@ -87,7 +87,7 @@ class ModelAdaptor(_ModelAdaptor):
             reservoir_geom = kwargs['reservoir']['geom']
         except KeyError:
             self.logger.info('No reservoir exists.')
-            raise EM1Error("No reservoir provided.")
+            raise WerHiResSmoM1Italy5yError("No reservoir provided.")
 
         ###
         # We have a quakeml catalog, convert so something the model
@@ -120,7 +120,7 @@ class ModelAdaptor(_ModelAdaptor):
                 'Received borehole ({} hydraulic sample(s)).'.format(
                     len(hydraulics)))
         except KeyError:
-            raise EM1Error(
+            raise WerHiResSmoM1Italy5yError(
                 'Received borehole without hydraulic samples.')
 
         self.logger.debug('Importing scenario hydraulic data...')
@@ -134,13 +134,13 @@ class ModelAdaptor(_ModelAdaptor):
                 'Received scenario ({} hydraulic sample(s)).'.format(
                     len(hydraulics_scenario)))
         except KeyError:
-            raise EM1Error(
+            raise WerHiResSmoM1Italy5yError(
                 'Received scenario without hydraulic samples.')
 
         self.logger.debug('Checking training period...')
         try:
             training_epoch_duration = model_config[
-                'em1_training_epoch_duration']
+                'wer_hires_smo_m1_italy_5y_training_epoch_duration']
         except KeyError:
             self.logger.info("No training_epoch_duration is set.")
             start_time_hydraulics = hydraulics.sort_index().index[0].\
@@ -149,23 +149,23 @@ class ModelAdaptor(_ModelAdaptor):
                 total_seconds()
 
             if training_epoch_duration <= 0.:
-                raise EM1Error("End of training set to before the "
+                raise WerHiResSmoM1Italy5yError("End of training set to before the "
                                "first training data hydraulic sample.")
             self.logger.info("Setting training_epoch_duration to: "
                              f"{training_epoch_duration}.")
 
         ### If model is not python, it would be here that a system call
         # to model would take place, with waiting enabled.
-        self.logger.info("Calling the EM1 model...")
+        self.logger.info("Calling the WerHiResSmoM1Italy5y model...")
         try:
-            a, b, mc, forecast_values = em1_model.exec_model(
+            a, b, mc, forecast_values = wer_hires_smo_m1_italy_5y_model.exec_model(
                 catalog,
                 hydraulics,
                 hydraulics_scenario,
                 end_training,
                 training_epoch_duration,
-                model_config['em1_training_magnitude_bin'],
-                model_config['em1_training_events_threshold'],
+                model_config['wer_hires_smo_m1_italy_5y_training_magnitude_bin'],
+                model_config['wer_hires_smo_m1_italy_5y_training_events_threshold'],
                 model_config['datetime_start'],
                 model_config['datetime_end'],
                 epoch_duration)
@@ -182,9 +182,9 @@ class ModelAdaptor(_ModelAdaptor):
             raise
         # Quirk of set-up means that we need to raise another error.
         if not a:
-            raise EM1Error('Error raised in EM1 model')
+            raise WerHiResSmoM1Italy5yError('Error raised in WerHiResSmoM1Italy5y model')
 
-        self.logger.debug("Result received from EM1 model.")
+        self.logger.debug("Result received from WerHiResSmoM1Italy5y model.")
 
         ###
         # Then the processing of results may take place so that they
@@ -217,7 +217,7 @@ class ModelAdaptor(_ModelAdaptor):
             start_date = dttime
 
         self.logger.info(f"{len(samples)} valid forecast samples")
-        if model_config['em1_return_subgeoms']:
+        if model_config['wer_hires_smo_m1_italy_5y_return_subgeoms']:
             reservoir = subgeoms_for_single_result(reservoir_geom,
                                                    samples)
         else:

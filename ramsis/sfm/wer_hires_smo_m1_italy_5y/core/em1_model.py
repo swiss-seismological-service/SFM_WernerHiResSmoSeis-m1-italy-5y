@@ -1,10 +1,10 @@
 """
-EM1 model code that uses hydraulic borehole data and a seismicity catalog
+WerHiResSmoM1Italy5y model code that uses hydraulic borehole data and a seismicity catalog
 to forecast the number of events above a certain magnitude based on a
 hydraulics plan.
 """
 
-# Note: Please change all references to EM1, em1 to what your model name
+# Note: Please change all references to WerHiResSmoM1Italy5y, wer_hires_smo_m1_italy_5y to what your model name
 # abbreviation should be.
 
 # This model has been implemented in python, however it is not required
@@ -18,21 +18,21 @@ import argparse
 import logging
 from datetime import datetime
 
-from ramsis.sfm.em1.core.error import (SeismicEventThresholdError,
+from ramsis.sfm.wer_hires_smo_m1_italy_5y.core.error import (SeismicEventThresholdError,
                                        NegativeVolumeError)
 
-LOGGER = 'ramsis.sfm.em1_model'
-NAME = 'EM1MODEL'
+LOGGER = 'ramsis.sfm.wer_hires_smo_m1_italy_5y_model'
+NAME = 'WerHiResSmoM1Italy5yMODEL'
 logger = logging.getLogger(LOGGER)
 
 ###
 # Imput model code here if implemented in python.
 #
-# The full implementation of how EM1 was implemented can be found:
-# https://gitlab.seismo.ethz.ch/indu/ramsis.sfm.em1/-/blob/feature/model_code/ramsis/sfm/em1/core/em1_model.py
+# The full implementation of how WerHiResSmoM1Italy5y was implemented can be found:
+# https://gitlab.seismo.ethz.ch/indu/ramsis.sfm.wer_hires_smo_m1_italy_5y/-/blob/feature/model_code/ramsis/sfm/wer_hires_smo_m1_italy_5y/core/wer_hires_smo_m1_italy_5y_model.py
 #
 # Please note that the inputs to this model were transformed into pandas dataframes.
-# This is not a requirement for models but was the chosen method for EM1 as it
+# This is not a requirement for models but was the chosen method for WerHiResSmoM1Italy5y as it
 # improved data handling. The model_adaptor.py file referenced above handles
 # the transformation from the incoming data to something that the model can
 # handle.

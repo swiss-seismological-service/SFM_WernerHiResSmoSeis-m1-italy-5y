@@ -12,13 +12,13 @@ class ModelExitCode(enum.Enum):
     EXIT_ERROR = 2
 
 
-class EM1CoreError(ErrorWithTraceback):
-    """Base EM1 model core error ({})."""
+class WerHiResSmoM1Italy5yCoreError(ErrorWithTraceback):
+    """Base WerHiResSmoM1Italy5y model core error ({})."""
 
-class EM1ObspyCatalogError(ErrorWithTraceback):
+class WerHiResSmoM1Italy5yObspyCatalogError(ErrorWithTraceback):
     """Input quakeml to obspy error ({})."""
 
-class EM1WellInputError(ErrorWithTraceback):
+class WerHiResSmoM1Italy5yWellInputError(ErrorWithTraceback):
     """Input well and finding hydraulic samples error ({})."""
 
 class SeismicEventThresholdError(Error):

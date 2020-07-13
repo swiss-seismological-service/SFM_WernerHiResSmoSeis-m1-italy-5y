@@ -1,6 +1,6 @@
 # Copyright 2018, ETH Zurich - Swiss Seismological Service SED
 """
-Python package providing an implementation of the EM1 (`Shapiro and Smoothed
+Python package providing an implementation of the WerHiResSmoM1Italy5y (`Shapiro and Smoothed
 Seismicity <https://library.seg.org/doi/10.1190/1.3353727>`_) model.
 
 .. note::

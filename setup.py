@@ -1,6 +1,6 @@
 # Copyright 2018, ETH Zurich - Swiss Seismological Service SED
 """
-setup.py for ramsis.sfm.em1
+setup.py for ramsis.sfm.wer_hires_smo_m1_italy_5y
 
 .. note:
 
@@ -60,15 +60,15 @@ _data_files = [
 
 _entry_points = {
     'console_scripts': [
-        'ramsis-sfm-worker-em1 = ramsis.sfm.em1.server.app:main', ]}
+        'ramsis-sfm-worker-wer_hires_smo_m1_italy_5y = ramsis.sfm.wer_hires_smo_m1_italy_5y.server.app:main', ]}
 
-_name = 'ramsis.sfm.em1'
-_version = get_version(os.path.join('ramsis', 'sfm', 'em1', '__init__.py'))
-_description = ('RT-RAMSIS SFM-Worker (EM1).')
-_packages = ['ramsis.sfm.em1',
-             'ramsis.sfm.em1.server',
-             'ramsis.sfm.em1.server.v1',
-             'ramsis.sfm.em1.core', ]
+_name = 'ramsis.sfm.wer_hires_smo_m1_italy_5y'
+_version = get_version(os.path.join('ramsis', 'sfm', 'wer_hires_smo_m1_italy_5y', '__init__.py'))
+_description = ('RT-RAMSIS SFM-Worker (WerHiResSmoM1Italy5y).')
+_packages = ['ramsis.sfm.wer_hires_smo_m1_italy_5y',
+             'ramsis.sfm.wer_hires_smo_m1_italy_5y.server',
+             'ramsis.sfm.wer_hires_smo_m1_italy_5y.server.v1',
+             'ramsis.sfm.wer_hires_smo_m1_italy_5y.core', ]
 _namespace_packages = ['ramsis', 'ramsis.sfm']
 
 # ----------------------------------------------------------------------------

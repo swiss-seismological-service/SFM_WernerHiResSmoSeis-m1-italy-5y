@@ -1,12 +1,12 @@
 # Copyright 2018, ETH Zurich - Swiss Seismological Service SED
 """
-Miscellaneous EM1 model core facilities.
+Miscellaneous WerHiResSmoM1Italy5y model core facilities.
 """
 import pandas as pd
 from obspy import read_events
 
-from ramsis.sfm.em1.core.error import (EM1ObspyCatalogError,
-                                       EM1WellInputError)
+from ramsis.sfm.wer_hires_smo_m1_italy_5y.core.error import (WerHiResSmoM1Italy5yObspyCatalogError,
+                                       WerHiResSmoM1Italy5yWellInputError)
 
 # This file should contain utility functions that convert data from
 # original format given by marshmallow parser to something the model
@@ -22,11 +22,11 @@ def obspy_catalog_parser(xml_string):
     try:
         obspy_catalog = read_events(xml_string)
     except AttributeError:
-        raise EM1ObspyCatalogError()
+        raise WerHiResSmoM1Italy5yObspyCatalogError()
     # TODO (sarsonl) Should there be further checks on the information,
     # such as lat and lon?
     if len(obspy_catalog.events) == 0:
-        raise EM1ObspyCatalogError("Number of events is zero.")
+        raise WerHiResSmoM1Italy5yObspyCatalogError("Number of events is zero.")
     (dttime_column,
      mag_column,
      latitude_column,
@@ -53,7 +53,7 @@ def hydraulics_parser(well_data):
         # and whether hydraulics exist.
         hydraulics_data = sections_data[0]['hydraulics']
     except AttributeError:
-        raise EM1WellInputError()
+        raise WerHiResSmoM1Italy5yWellInputError()
     # Not sure at this point if topflow is the field that will be used,
     # or whether bottom flow is more correct,
     # or whether this information wil be available in the first place.
