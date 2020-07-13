@@ -1,0 +1,1359 @@
+{
+	"info": {
+		"_postman_id": "34bf4614-7d54-424a-9289-fe55e31bcf56",
+		"name": "EM1",
+		"description": "This test collection is to test the em1 worker api. This worker contains model functionality related to the SED EM1 model.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST v1/EM1/runs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id\",responseData.data.id);",
+							"",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							"}, 3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 12\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00\",\n                \"datetime_end\": \"2015-05-07T12:00:00\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2015-05-07T00:00:00\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id success post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id\")+'\", \"attributes\": {\"status\": \"TaskCompleted\", \"status_code\": 200, \"forecast\": {\"samples\": [{\"starttime\": \"2015-05-07T00:00:00\", \"endtime\": \"2015-05-07T04:00:00\", \"numberevents\": {\"value\": 1.8}, \"hydraulicvol\": {\"value\": 129600.0}, \"b\": {\"value\": 4.342944819}, \"a\": {\"value\": 14.2516247073}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-07T04:00:00\", \"endtime\": \"2015-05-07T08:00:00\", \"numberevents\": {\"value\": 2.4}, \"hydraulicvol\": {\"value\": 172800.0}, \"b\": {\"value\": 4.342944819}, \"a\": {\"value\": 14.2516247073}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-07T08:00:00\", \"endtime\": \"2015-05-07T12:00:00\", \"numberevents\": {\"value\": 2.1}, \"hydraulicvol\": {\"value\": 151200.0}, \"b\": {\"value\": 4.342944819}, \"a\": {\"value\": 14.2516247073}, \"mc\": {\"value\": 4.4}}], \"x\": {\"min\": -20000.0, \"max\": 20000.0}, \"y\": {\"min\": -20000.0, \"max\": 20000.0}, \"z\": {\"min\": -40000.0, \"max\": 0.0}}}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET  v1/EM1/runs/task_id success post",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_base}}/v1/EM1/runs/{{post_id}}",
+							"host": [
+								"{{url_base}}"
+							],
+							"path": [
+								"v1",
+								"EM1",
+								"runs",
+								"{{post_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1157"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.15.5 Python/3.6.7"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 04 Nov 2019 13:50:22 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": {\n        \"id\": \"a494366b-aeb6-4155-9bf6-c9f821d7b96c\",\n        \"attributes\": {\n            \"status\": \"TaskCompleted\",\n            \"status_code\": 200,\n            \"forecast\": {\n                \"geom\": \"POLYHEDRALSURFACE Z (((50 6 -20000,50 8 -20000,52 8 -20000,52 6 -20000,50 6 -20000)),((50 6 -20000,50 8 -20000,50 8 0,50 6 0,50 6 -20000)),((50 6 -20000,52 6 -20000,52 6 0,50 6 0,50 6 -20000)),((52 8 0,52 6 0,50 6 0,50 8 0,52 8 0)),((52 8 0,52 6 0,52 6 -20000,52 8 -20000,52 8 0)),((52 8 0,52 8 -20000,50 8 -20000,50 8 0,52 8 0)))\",\n                \"samples\": [\n                    {\n                        \"starttime\": \"2015-05-07T00:00:00\",\n                        \"endtime\": \"2015-05-07T04:00:00\",\n                        \"numberevents\": {\n                            \"value\": 1.8\n                        },\n                        \"hydraulicvol\": {\n                            \"value\": 129600\n                        },\n                        \"b\": {\n                            \"value\": 4.342944819\n                        },\n                        \"a\": {\n                            \"value\": 14.2516247073\n                        },\n                        \"mc\": {\n                            \"value\": 4.4\n                        }\n                    },\n                    {\n                        \"starttime\": \"2015-05-07T04:00:00\",\n                        \"endtime\": \"2015-05-07T08:00:00\",\n                        \"numberevents\": {\n                            \"value\": 2.4\n                        },\n                        \"hydraulicvol\": {\n                            \"value\": 172800\n                        },\n                        \"b\": {\n                            \"value\": 4.342944819\n                        },\n                        \"a\": {\n                            \"value\": 14.2516247073\n                        },\n                        \"mc\": {\n                            \"value\": 4.4\n                        }\n                    },\n                    {\n                        \"starttime\": \"2015-05-07T08:00:00\",\n                        \"endtime\": \"2015-05-07T12:00:00\",\n                        \"numberevents\": {\n                            \"value\": 2.1\n                        },\n                        \"hydraulicvol\": {\n                            \"value\": 151200\n                        },\n                        \"b\": {\n                            \"value\": 4.342944819\n                        },\n                        \"a\": {\n                            \"value\": 14.2516247073\n                        },\n                        \"mc\": {\n                            \"value\": 4.4\n                        }\n                    }\n                ]\n            }\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "POST v1/EM1/runs no end_training",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id3\",responseData.data.id);",
+							"",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							"}, 3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 12\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id success post no end_training",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id3\")+'\", \"attributes\": {\"status\": \"TaskCompleted\", \"status_code\": 200, \"forecast\": {\"samples\": [{\"starttime\": \"2015-05-07T00:00:00\", \"endtime\": \"2015-05-07T04:00:00\", \"numberevents\": {\"value\": 1.8}, \"hydraulicvol\": {\"value\": 129600.0}, \"b\": {\"value\": 4.342944819}, \"a\": {\"value\": 14.2516247073}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-07T04:00:00\", \"endtime\": \"2015-05-07T08:00:00\", \"numberevents\": {\"value\": 2.4}, \"hydraulicvol\": {\"value\": 172800.0}, \"b\": {\"value\": 4.342944819}, \"a\": {\"value\": 14.2516247073}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-07T08:00:00\", \"endtime\": \"2015-05-07T12:00:00\", \"numberevents\": {\"value\": 2.1}, \"hydraulicvol\": {\"value\": 151200.0}, \"b\": {\"value\": 4.342944819}, \"a\": {\"value\": 14.2516247073}, \"mc\": {\"value\": 4.4}}], \"x\": {\"min\": -20000.0, \"max\": 20000.0}, \"y\": {\"min\": -20000.0, \"max\": 20000.0}, \"z\": {\"min\": -40000.0, \"max\": 0.0}}}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id3}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id3}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs no hydraulics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{ \"errors\": { \"data\": { \"attributes\": { \"well\": { \"sections\": { \"0\": { \"hydraulics\": [ \"Missing data for required field.\" ] } } } } } } }'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n\t\"well\": {\n\t\t\"bedrockdepth\": {\n\t\t\t\"value\": 0\n\t\t},\n\t\t\"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n\t\t\"sections\": [{\n\t\t\t\"bottomclosed\": false,\n\t\t\t\"bottomdepth\": {\n\t\t\t\t\"value\": 1000\n\t\t\t},\n\t\t\t\"bottomlatitude\": {\n\t\t\t\t\"uncertainty\": 0.5368853227,\n\t\t\t\t\"value\": 10.66320713\n\t\t\t},\n\t\t\t\"bottomlongitude\": {\n\t\t\t\t\"uncertainty\": 0.7947170871,\n\t\t\t\t\"value\": 10.66320713\n\t\t\t},\n\t\t\t\"casingdiameter\": {\n\t\t\t\t\"value\": 0.28\n\t\t\t},\n\t\t\t\"endtime\": \"2015-12-10T01:00:00.000000\",\n\t\t\t\"holediameter\": {\n\t\t\t\t\"value\": 0.3\n\t\t\t},\n\t\t\t\n\t\t\t\"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n\t\t\t\"starttime\": \"2015-01-10T01:00:00.000000\",\n\t\t\t\"topclosed\": false,\n\t\t\t\"topdepth\": {\n\t\t\t\t\"value\": 0\n\t\t\t},\n\t\t\t\"toplatitude\": {\n\t\t\t\t\"uncertainty\": 0.5368853227,\n\t\t\t\t\"value\": 10.66320713\n\t\t\t},\n\t\t\t\"toplongitude\": {\n\t\t\t\t\"uncertainty\": 0.7947170871,\n\t\t\t\t\"value\": 10.66320713\n\t\t\t}\n\t\t}]\n\t},\n\t\"scenario\": {\n        \"well\": {\n\t\t\"bedrockdepth\": {\n\t\t\t\"value\": 0\n\t\t},\n\t\t\"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n\t\t\"sections\": [{\n\t\t\t\"bottomclosed\": false,\n\t\t\t\"bottomdepth\": {\n\t\t\t\t\"value\": 1000\n\t\t\t},\n\t\t\t\"bottomlatitude\": {\n\t\t\t\t\"uncertainty\": 0.5368853227,\n\t\t\t\t\"value\": 10.66320713\n\t\t\t},\n\t\t\t\"bottomlongitude\": {\n\t\t\t\t\"uncertainty\": 0.7947170871,\n\t\t\t\t\"value\": 10.66320713\n\t\t\t},\n\t\t\t\"casingdiameter\": {\n\t\t\t\t\"value\": 0.28\n\t\t\t},\n\t\t\t\"endtime\": \"2015-05-07T10:00:00.000000\",\n\t\t\t\"holediameter\": {\n\t\t\t\t\"value\": 0.3\n\t\t\t},\n\t\t\t\"hydraulics\": [{\n\t\t\t\t\"bottomflow\": {\n\t\t\t\t\t\"value\": 42\n\t\t\t\t},\n\t\t\t\t\"bottompressure\": {\n\t\t\t\t\t\"value\": 73\n\t\t\t\t},\n\t\t\t\t\"bottomtemperature\": {\n\t\t\t\t\t\"value\": 303\n\t\t\t\t},\n\t\t\t\t\"datetime\": {\n\t\t\t\t\t\"value\": \"2015-05-07T01:00:00.000000\"\n\t\t\t\t},\n\t\t\t\t\"fluiddensity\": {\n\t\t\t\t\t\"value\": 8\n\t\t\t\t},\n\t\t\t\t\"fluidph\": {\n\t\t\t\t\t\"value\": 7\n\t\t\t\t},\n\t\t\t\t\"fluidviscosity\": {\n\t\t\t\t\t\"value\": 0.5\n\t\t\t\t},\n\t\t\t\t\"topflow\": {\n\t\t\t\t\t\"value\": 42\n\t\t\t\t},\n\t\t\t\t\"toppressure\": {\n\t\t\t\t\t\"value\": 73\n\t\t\t\t},\n\t\t\t\t\"toptemperature\": {\n\t\t\t\t\t\"value\": 273\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"bottomflow\": {\n\t\t\t\t\t\"value\": 42\n\t\t\t\t},\n\t\t\t\t\"bottompressure\": {\n\t\t\t\t\t\"value\": 73\n\t\t\t\t},\n\t\t\t\t\"bottomtemperature\": {\n\t\t\t\t\t\"value\": 303\n\t\t\t\t},\n\t\t\t\t\"datetime\": {\n\t\t\t\t\t\"value\": \"2015-05-07T11:30:00.000000\"\n\t\t\t\t},\n\t\t\t\t\"fluiddensity\": {\n\t\t\t\t\t\"value\": 8\n\t\t\t\t},\n\t\t\t\t\"fluidph\": {\n\t\t\t\t\t\"value\": 7\n\t\t\t\t},\n\t\t\t\t\"fluidviscosity\": {\n\t\t\t\t\t\"value\": 0.5\n\t\t\t\t},\n\t\t\t\t\"topflow\": {\n\t\t\t\t\t\"value\": 12\n\t\t\t\t},\n\t\t\t\t\"toppressure\": {\n\t\t\t\t\t\"value\": 73\n\t\t\t\t},\n\t\t\t\t\"toptemperature\": {\n\t\t\t\t\t\"value\": 273\n\t\t\t\t}\n\t\t\t}],\n\t\t\t\"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n\t\t\t\"starttime\": \"2015-01-10T00:00:00.000000\",\n\t\t\t\"topclosed\": false,\n\t\t\t\"topdepth\": {\n\t\t\t\t\"value\": 0\n\t\t\t},\n\t\t\t\"toplatitude\": {\n\t\t\t\t\"uncertainty\": 0.5368853227,\n\t\t\t\t\"value\": 10.66320713\n\t\t\t},\n\t\t\t\"toplongitude\": {\n\t\t\t\t\"uncertainty\": 0.7947170871,\n\t\t\t\t\"value\": 10.66320713\n\t\t\t}\n\t\t}]\n\t}\n    \n    },\n\t\"reservoir\": {\n\t\t\"geom\": {{geom_input}}\n\t},\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2015-05-07T00:00:00.000000\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n    }\n\n\n}}}\n"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs no scenario hydraulics",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{ \"errors\": { \"data\": { \"attributes\": { \"scenario\": { \"well\": { \"sections\": { \"0\": { \"hydraulics\": [ \"Missing data for required field.\" ] } } } } } } } }'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2015-05-07T00:00:00.000000\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs later timespan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id2\",responseData.data.id);",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\":  \"'+pm.environment.get(\"post_id2\")+'\", \"attributes\": {\"status\": \"TaskAccepted\", \"status_code\": 202}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							"}, 3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 12\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2016-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2016-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2016-05-07T00:00:00.000000\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id seismic events not in time window",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id2\")+'\", \"attributes\": {\"status\": \"ModelError-ModelAdaptor\", \"status_code\": 500, \"warning\": \"Caught in default model exception handler. Too few seismic events found, model will not continue.\"}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id2}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs default model params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id4\",responseData.data.id);",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\":  \"'+pm.environment.get(\"post_id4\")+'\", \"attributes\": {\"status\": \"TaskAccepted\", \"status_code\": 202}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 5 seconds before next request.\");",
+							"}, 5000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-04T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-04T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-05T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-05T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 12\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-05T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-05T12:00:00.000000\",\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id default model params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id4\")+'\", \"attributes\": {\"status\": \"TaskCompleted\", \"status_code\": 200, \"forecast\": {\"samples\": [{\"starttime\": \"2015-05-05T00:00:00\", \"endtime\": \"2015-05-05T04:00:00\", \"numberevents\": {\"value\": 1.8}, \"hydraulicvol\": {\"value\": 129600.0}, \"b\": {\"value\": 2.895296546}, \"a\": {\"value\": 7.8819723061}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-05T04:00:00\", \"endtime\": \"2015-05-05T08:00:00\", \"numberevents\": {\"value\": 2.4}, \"hydraulicvol\": {\"value\": 172800.0}, \"b\": {\"value\": 2.895296546}, \"a\": {\"value\": 7.8819723061}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-05T08:00:00\", \"endtime\": \"2015-05-05T12:00:00\", \"numberevents\": {\"value\": 2.1}, \"hydraulicvol\": {\"value\": 151200.0}, \"b\": {\"value\": 2.895296546}, \"a\": {\"value\": 7.8819723061}, \"mc\": {\"value\": 4.4}}], \"x\": {\"min\": -20000.0, \"max\": 20000.0}, \"y\": {\"min\": -20000.0, \"max\": 20000.0}, \"z\": {\"min\": -40000.0, \"max\": 0.0}}}}}');",
+							"    ",
+							"    console.log(jsonresponse)",
+							"        var jsonData = pm.response.json(); ",
+							"",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id4}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id4}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs test different params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id5\",responseData.data.id);",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\":  \"'+pm.environment.get(\"post_id5\")+'\", \"attributes\": {\"status\": \"TaskAccepted\", \"status_code\": 202}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 5 seconds before next request.\");",
+							"}, 5000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 12\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"em1_training_events_threshold\": 0,\n                \"em1_training_epoch_duration\": 1000000.0,\n                \"epoch_duration\": 10000.0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id try different params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id5\")+'\", \"attributes\": {\"status\": \"TaskCompleted\", \"status_code\": 200, \"forecast\": {\"samples\": [{\"starttime\": \"2015-05-07T00:00:00\", \"endtime\": \"2015-05-07T02:46:40\", \"numberevents\": {\"value\": 1.06666666666667}, \"hydraulicvol\": {\"value\": 76800.0}, \"b\": {\"value\": 2.895296546}, \"a\": {\"value\": 7.8819723061}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-07T02:46:40\", \"endtime\": \"2015-05-07T05:33:20\", \"numberevents\": {\"value\": 1.66666666666667}, \"hydraulicvol\": {\"value\": 120000.0}, \"b\": {\"value\": 2.895296546}, \"a\": {\"value\": 7.8819723061}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-07T05:33:20\", \"endtime\": \"2015-05-07T08:20:00\", \"numberevents\": {\"value\": 1.66666666666667}, \"hydraulicvol\": {\"value\": 120000.0}, \"b\": {\"value\": 2.895296546}, \"a\": {\"value\": 7.8819723061}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-07T08:20:00\", \"endtime\": \"2015-05-07T11:06:40\", \"numberevents\": {\"value\": 1.66666666666667}, \"hydraulicvol\": {\"value\": 120000.0}, \"b\": {\"value\": 2.895296546}, \"a\": {\"value\": 7.8819723061}, \"mc\": {\"value\": 4.4}}], \"x\": {\"min\": -20000.0, \"max\": 20000.0}, \"y\": {\"min\": -20000.0, \"max\": 20000.0}, \"z\": {\"min\": -40000.0, \"max\": 0.0}}}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json();",
+							"        console.log(jsonData);",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id5}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id5}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs test no events in catalog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id11\",responseData.data.id);",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\":  \"'+pm.environment.get(\"post_id11\")+'\", \"attributes\": {\"status\": \"TaskAccepted\", \"status_code\": 202}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 5 seconds before next request.\");",
+							"}, 5000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz48cTpxdWFrZW1sIHhtbG5zOnE9Imh0dHA6Ly9xdWFrZW1sLm9yZy94bWxucy9xdWFrZW1sLzEuMiIgeG1sbnM9Imh0dHA6Ly9xdWFrZW1sLm9yZy94bWxucy9iZWQvMS4yIj48ZXZlbnRQYXJhbWV0ZXJzIHB1YmxpY0lEPSJzbWk6c2NzLzAuNy9FdmVudFBhcmFtZXRlcnMiIC8+PC9xOnF1YWtlbWw+\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 12\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"em1_training_events_threshold\": 0,\n                \"em1_training_epoch_duration\": 1000000.0,\n                \"epoch_duration\": 10000.0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs negative hydraulics plan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id6\",responseData.data.id);",
+							"",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							"}, 3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": -1\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": -1\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": -1\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": -1\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2015-05-07T00:00:00.000000\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id negative hydraulic plan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id6\")+'\", \"attributes\": {\"status\": \"TaskCompleted\", \"status_code\": 200, \"forecast\": {\"x\": {\"min\": -20000.0, \"max\": 20000.0}, \"y\": {\"min\": -20000.0, \"max\": 20000.0}, \"z\": {\"min\": -40000.0, \"max\": 0.0}}}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id6}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id6}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs reservoir catalog filtering depth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id6\",responseData.data.id);",
+							"",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							"}, 3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string_depth}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 12\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2015-05-07T00:00:00.000000\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id filter catalog on depth - too few events",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"",
+							"// As the model requires more than one event, the request made to the model where only one event is valid in depth returns a model error.",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id6\")+'\", \"attributes\": {\"status\": \"ModelError-ModelAdaptor\", \"status_code\": 500, \"warning\": \"Caught in default model exception handler. Too few seismic events found, model will not continue.\"}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id6}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id6}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs reservoir catalog filtering longitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id7\",responseData.data.id);",
+							"",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							"}, 3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string_lat}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 12\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2015-05-07T00:00:00.000000\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id filter catalog on longitude - too few events Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id7\")+'\", \"attributes\": {\"status\": \"ModelError-ModelAdaptor\", \"status_code\": 500, \"warning\": \"Caught in default model exception handler. Too few seismic events found, model will not continue.\"}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id7}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id7}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs shut in hydraulics plan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id8\",responseData.data.id);",
+							"",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							"}, 3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": -1\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 0.0\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": -1\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 0.0\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2015-05-07T00:00:00.000000\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id shut-in hydraulic plan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id8\")+'\", \"attributes\": {\"status\": \"TaskCompleted\", \"status_code\": 200, \"forecast\": {\"x\": {\"min\": -20000.0, \"max\": 20000.0}, \"y\": {\"min\": -20000.0, \"max\": 20000.0}, \"z\": {\"min\": -40000.0, \"max\": 0.0}}}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id8}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id8}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs negative hydraulics training",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id9\",responseData.data.id);",
+							"",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							"}, 3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": -1.0\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": -1.0\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": -1\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 1.0\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": -1\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 1.0\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2015-05-07T00:00:00.000000\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id negative hydraulics training",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id9\")+'\", \"attributes\": {\"status\": \"ModelError-ModelAdaptor\", \"status_code\": 500, \"warning\": \"Caught in default model exception handler. Negative cumulative volume in training period.\"}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id9}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id9}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST v1/EM1/runs altitude in boreholes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e4c0f76-a67e-4ec0-9c4e-5a2750713569",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {",
+							"    pm.response.to.have.status(202);",
+							"});",
+							"",
+							"let responseData = pm.response.json();",
+							"",
+							"pm.environment.set(\"post_id10\",responseData.data.id);",
+							"",
+							"setTimeout(function(){",
+							"          console.log(\"Sleeping for 3 seconds before next request.\");",
+							"}, 3000);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"data\": {\n        \"attributes\": {\n        \t\"spatialreference\": \"+proj=utm +zone=32N +ellps=WGS84 +datum=WGS84 +units=m +x_0=0.0 +y_0=0.0 +no_defs\",\n        \t\"referencepoint\": {\n        \t\t\"x\": 5705836.539841376,\n        \t\t\"y\": 945465.9832332594\n        \t},\n            \"seismic_catalog\": {\n                \"quakeml\": \"{{quakeml_string}}\"\n            },\n            \"well\": {\n                \"bedrockdepth\": {\n                    \"value\": 0\n                },\n                \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                \"altitude\": {\n                \t\"value\": 500\n                },\n                \"sections\": [\n                    {\n                        \"bottomclosed\": false,\n                        \"bottomdepth\": {\n                            \"value\": 1000\n                        },\n                        \"bottomlatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"bottomlongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        },\n                        \"casingdiameter\": {\n                            \"value\": 0.28\n                        },\n                        \"endtime\": \"2015-12-10T01:00:00.000000\",\n                        \"holediameter\": {\n                            \"value\": 0.3\n                        },\n                        \"hydraulics\": [\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 42\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 73\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T12:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 42\n                                },\n                                \"toppressure\": {\n                                    \"value\": 73\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            },\n                            {\n                                \"bottomflow\": {\n                                    \"value\": 40\n                                },\n                                \"bottompressure\": {\n                                    \"value\": 70\n                                },\n                                \"bottomtemperature\": {\n                                    \"value\": 303\n                                },\n                                \"datetime\": {\n                                    \"value\": \"2015-05-06T13:00:00.000000\"\n                                },\n                                \"fluiddensity\": {\n                                    \"value\": 8\n                                },\n                                \"fluidph\": {\n                                    \"value\": 7\n                                },\n                                \"fluidviscosity\": {\n                                    \"value\": 0.5\n                                },\n                                \"topflow\": {\n                                    \"value\": 40\n                                },\n                                \"toppressure\": {\n                                    \"value\": 70\n                                },\n                                \"toptemperature\": {\n                                    \"value\": 273\n                                }\n                            }\n                        ],\n                        \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                        \"starttime\": \"2015-01-10T01:00:00.000000\",\n                        \"topclosed\": false,\n                        \"topdepth\": {\n                            \"value\": 0\n                        },\n                        \"toplatitude\": {\n                            \"uncertainty\": 0.5368853227,\n                            \"value\": 10.66320713\n                        },\n                        \"toplongitude\": {\n                            \"uncertainty\": 0.7947170871,\n                            \"value\": 10.66320713\n                        }\n                    }\n                ]\n            },\n            \"scenario\": {\n                \"well\": {\n                    \"bedrockdepth\": {\n                        \"value\": 0\n                    },\n                    \"publicid\": \"smi:ch.ethz.sed/bh/11111111-e4a0-4692-bf29-33b5591eb798\",\n                    \"sections\": [\n                        {\n                            \"bottomclosed\": false,\n                            \"bottomdepth\": {\n                                \"value\": 1000\n                            },\n                            \"bottomlatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"bottomlongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            },\n                            \"casingdiameter\": {\n                                \"value\": 0.28\n                            },\n                            \"endtime\": \"2015-05-07T10:00:00.000000\",\n                            \"holediameter\": {\n                                \"value\": 0.3\n                            },\n                            \"hydraulics\": [\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T01:00:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                },\n                                {\n                                    \"bottomflow\": {\n                                        \"value\": 42\n                                    },\n                                    \"bottompressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"bottomtemperature\": {\n                                        \"value\": 303\n                                    },\n                                    \"datetime\": {\n                                        \"value\": \"2015-05-07T11:30:00.000000\"\n                                    },\n                                    \"fluiddensity\": {\n                                        \"value\": 8\n                                    },\n                                    \"fluidph\": {\n                                        \"value\": 7\n                                    },\n                                    \"fluidviscosity\": {\n                                        \"value\": 0.5\n                                    },\n                                    \"topflow\": {\n                                        \"value\": 12\n                                    },\n                                    \"toppressure\": {\n                                        \"value\": 73\n                                    },\n                                    \"toptemperature\": {\n                                        \"value\": 273\n                                    }\n                                }\n                            ],\n                            \"publicid\": \"smi:ch.ethz.sed/bh/section/11111111-8d89-4f13-95e7-526ade73cc8b\",\n                            \"starttime\": \"2015-01-10T00:00:00.000000\",\n                            \"topclosed\": false,\n                            \"topdepth\": {\n                                \"value\": 0\n                            },\n                            \"toplatitude\": {\n                                \"uncertainty\": 0.5368853227,\n                                \"value\": 10.66320713\n                            },\n                            \"toplongitude\": {\n                                \"uncertainty\": 0.7947170871,\n                                \"value\": 10.66320713\n                            }\n                        }\n                    ]\n                }\n            },\n            \"reservoir\": {\n                \"geom\": {{geom_input}}\n            },\n            \"model_parameters\": {\n                \"datetime_start\": \"2015-05-07T00:00:00.000000\",\n                \"datetime_end\": \"2015-05-07T12:00:00.000000\",\n                \"epoch_duration\": 14400,\n                \"em1_end_training\": \"2015-05-07T00:00:00.000000\",\n                \"em1_training_epoch_duration\": 864000,\n                \"em1_training_magnitude_bin\": 0.1,\n                \"em1_training_events_threshold\": 0\n            }\n        }\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  v1/EM1/runs/task_id success altitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "22e1acba-6e50-44ae-b0c8-3709521cd339",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"",
+							"    var jsonresponse = JSON.parse('{\"data\": {\"id\": \"'+pm.environment.get(\"post_id10\")+'\", \"attributes\": {\"status\": \"TaskCompleted\", \"status_code\": 200, \"forecast\": {\"samples\": [{\"starttime\": \"2015-05-07T00:00:00\", \"endtime\": \"2015-05-07T04:00:00\", \"numberevents\": {\"value\": 1.8}, \"hydraulicvol\": {\"value\": 129600.0}, \"b\": {\"value\": 4.342944819}, \"a\": {\"value\": 14.2516247073}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-07T04:00:00\", \"endtime\": \"2015-05-07T08:00:00\", \"numberevents\": {\"value\": 2.4}, \"hydraulicvol\": {\"value\": 172800.0}, \"b\": {\"value\": 4.342944819}, \"a\": {\"value\": 14.2516247073}, \"mc\": {\"value\": 4.4}}, {\"starttime\": \"2015-05-07T08:00:00\", \"endtime\": \"2015-05-07T12:00:00\", \"numberevents\": {\"value\": 2.1}, \"hydraulicvol\": {\"value\": 151200.0}, \"b\": {\"value\": 4.342944819}, \"a\": {\"value\": 14.2516247073}, \"mc\": {\"value\": 4.4}}], \"x\": {\"min\": -20000.0, \"max\": 20000.0}, \"y\": {\"min\": -20000.0, \"max\": 20000.0}, \"z\": {\"min\": -40000.0, \"max\": 0.0}}}}}'); ",
+							"    ",
+							"        var jsonData = pm.response.json(); ",
+							"        ",
+							"    var diff = _.isEqual(jsonData, jsonresponse);",
+							"    pm.expect(diff).to.eql(true);",
+							"    }",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}/v1/EM1/runs/{{post_id10}}",
+					"host": [
+						"{{url_base}}"
+					],
+					"path": [
+						"v1",
+						"EM1",
+						"runs",
+						"{{post_id10}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
