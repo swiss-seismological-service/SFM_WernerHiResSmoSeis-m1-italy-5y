@@ -2,7 +2,8 @@
 """
 General purpose configuration constants.
 """
-
+from numpy import arange
+from numpy import round as nround
 from ramsis.sfm.worker import settings
 
 RAMSIS_WORKER_WerHiResSmoM1Italy5y_ID = 'WerHiResSmoM1Italy5y'
@@ -12,13 +13,33 @@ RAMSIS_WORKER_WerHiResSmoM1Italy5y_CONFIG_SECTION = 'CONFIG_SFM_WORKER_WerHiResS
 PATH_RAMSIS_WerHiResSmoM1Italy5y_SCENARIOS = ('/' + RAMSIS_WORKER_WerHiResSmoM1Italy5y_ID +
                              settings.PATH_RAMSIS_WORKER_SCENARIOS)
 
-# Configure defaults for the inputs parsed in the schema
-# file. Defaults are not required, if not needed leave an
-# empty dict here.
+# Reservoir default is that already implemented by CSEP as the standard Italy
+# grid
+lon_min = 5.55
+lon_max = 19.45
+lat_min = 35.85
+lat_max = 47.85
+lon_increment = 0.1
+lat_increment = 0.1
+z_max = 0.0
+z_min = -30.0
+
+mag_start = 4.95
+mag_end = 9.05
+mag_increment = 0.1
+
+
+# What is depth layer?
+
+lon_list = nround(arange(lon_min, lon_max, lon_increment), 2).tolist()
+lat_list = nround(arange(lat_min, lat_max, lat_increment), 2).tolist()
+
 RAMSIS_WORKER_SFM_DEFAULTS = {
+    "reservoir": {"geom": {"x": lon_list,
+                           "y": lat_list,
+                           "z": [z_min, z_max]}},
     "model_parameters": {
-        "epoch_duration": 14400.0,
-        "wer_hires_smo_m1_italy_5y_training_magnitude_bin": 0.2,
-        "wer_hires_smo_m1_italy_5y_training_threshold_magnitude": 2.6,
-        "wer_hires_smo_m1_italy_5y_training_events_threshold": 4.0,
-        "wer_hires_smo_m1_italy_5y_return_subgeoms": False}}
+        "epoch_duration": None,
+        "model_min_mag": mag_start,
+        "model_max_mag": mag_end,
+        "mag_increament": mag_increment}}

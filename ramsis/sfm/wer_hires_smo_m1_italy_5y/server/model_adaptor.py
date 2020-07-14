@@ -64,18 +64,18 @@ class ModelAdaptor(_ModelAdaptor):
         self.logger.debug(
             'Received model configuration: {!r}'.format(model_config))
 
+        mag_bin_list = nround(arange(model_config['model_mag_start'],
+                                     model_config['model_mag_end'],
+                                     model_config['model_mag_increment']), 1).to_list()
         ####
         # Validations on data
-        try:
-            end_training = model_config['wer_hires_smo_m1_italy_5y_end_training']
-        except KeyError:
-            end_training = model_config['datetime_start']
-
         epoch_duration = model_config['epoch_duration']
         forecast_duration = (model_config['datetime_end'] -
                              model_config['datetime_start']).total_seconds()
 
-        if epoch_duration > forecast_duration:
+        if not epoch_duration:
+            epoch_duration = forecast_duration
+        elif epoch_duration > forecast_duration:
             self.logger.info("The epoch duration is less than the "
                              "total time of forecast")
             epoch_duration = forecast_duration
@@ -89,83 +89,14 @@ class ModelAdaptor(_ModelAdaptor):
             self.logger.info('No reservoir exists.')
             raise WerHiResSmoM1Italy5yError("No reservoir provided.")
 
-        ###
-        # We have a quakeml catalog, convert so something the model
-        # can process. In this case a pandas dataframe.
-        self.logger.debug('Importing seismic catalog ...')
-        try:
-            catalog = obspy_catalog_parser(
-                kwargs["seismic_catalog"]["quakeml"])
-            self.logger.info(
-                f'Received seismic catalog with {len(catalog)} event(s).')
-        except KeyError:
-            self.logger.warning(
-                'Received catalog without quakeml key.')
-            raise ValidationError('No quakeml key found for catalog.')
-
-        ###
-        # Remove events from catalog that are outside scope in space or time.
-        catalog = self._filter_catalog(catalog, reservoir_geom,
-                                       kwargs.get("spatialreference"),
-                                       kwargs.get("referencepoint"))
-
-        ###
-        # Parse hydraulic data if required. Again imports only data required
-        # into pandas dataframe. Any format required can be used.
-        self.logger.debug('Importing real hydraulic data ...')
-        try:
-            hydraulics = hydraulics_parser(kwargs["well"])
-
-            self.logger.info(
-                'Received borehole ({} hydraulic sample(s)).'.format(
-                    len(hydraulics)))
-        except KeyError:
-            raise WerHiResSmoM1Italy5yError(
-                'Received borehole without hydraulic samples.')
-
-        self.logger.debug('Importing scenario hydraulic data...')
-        ###
-        # Import the hydraulics planned scenario (for the future)
-        # into same format as observed data.
-        try:
-            hydraulics_scenario = hydraulics_parser(
-                kwargs["scenario"]["well"])
-            self.logger.info(
-                'Received scenario ({} hydraulic sample(s)).'.format(
-                    len(hydraulics_scenario)))
-        except KeyError:
-            raise WerHiResSmoM1Italy5yError(
-                'Received scenario without hydraulic samples.')
-
-        self.logger.debug('Checking training period...')
-        try:
-            training_epoch_duration = model_config[
-                'wer_hires_smo_m1_italy_5y_training_epoch_duration']
-        except KeyError:
-            self.logger.info("No training_epoch_duration is set.")
-            start_time_hydraulics = hydraulics.sort_index().index[0].\
-                to_pydatetime()
-            training_epoch_duration = (end_training - start_time_hydraulics).\
-                total_seconds()
-
-            if training_epoch_duration <= 0.:
-                raise WerHiResSmoM1Italy5yError("End of training set to before the "
-                               "first training data hydraulic sample.")
-            self.logger.info("Setting training_epoch_duration to: "
-                             f"{training_epoch_duration}.")
-
-        ### If model is not python, it would be here that a system call
-        # to model would take place, with waiting enabled.
         self.logger.info("Calling the WerHiResSmoM1Italy5y model...")
+
+        # Return arrays for each result attribute.
         try:
-            a, b, mc, forecast_values = wer_hires_smo_m1_italy_5y_model.exec_model(
-                catalog,
-                hydraulics,
-                hydraulics_scenario,
-                end_training,
-                training_epoch_duration,
-                model_config['wer_hires_smo_m1_italy_5y_training_magnitude_bin'],
-                model_config['wer_hires_smo_m1_italy_5y_training_events_threshold'],
+            a, b, mc, minmag, maxmag, forecast_values = wer_hires_smo_m1_italy_5y_model.exec_model(
+                mag_bin_list,
+                epoch_duration,
+                reservoir_geom,
                 model_config['datetime_start'],
                 model_config['datetime_end'],
                 epoch_duration)
@@ -196,24 +127,18 @@ class ModelAdaptor(_ModelAdaptor):
             if not start_date:
                 start_date = dttime
                 continue
-            if row.volume <= 0.0 or np.isnan(row.volume):
-                self.logger.warning(
-                    f"Forecast for {start_date}:{dttime} is not being written "
-                    f"as injected volume is {row.volume}")
+            if row.a <= 0.0 or np.isnan(row.a):
+                # Option to raise warning if we have zero seismicity
                 continue
-            # (sarsonl) round floats as difference in
-            # decimal places returned in sqlite/postgresql
+
             samples.append(orm.ModelResultSample(
                            starttime=start_date,
                            endtime=dttime,
-                           # Rounding here for consistancy of results
-                           # as different numerical limits apply to different
-                           # databases. Not required to apply.
+                           minmag=minmag,
+                           maxmag=maxmag,
                            b_value=round(b, 10),
                            a_value=round(a, 10),
-                           mc_value=round(mc, 10),
-                           numberevents_value=row.N,
-                           hydraulicvol_value=row.volume))
+                           mc_value=round(mc, 10)))
             start_date = dttime
 
         self.logger.info(f"{len(samples)} valid forecast samples")
@@ -229,75 +154,3 @@ class ModelAdaptor(_ModelAdaptor):
         return ModelResult.ok(
             data={"reservoir": reservoir},
             warning=self.stderr if self.stderr else self.stdout)
-
-    def _filter_catalog(self, catalog, geom, spatial_reference,
-                        referencepoint):
-        # Apply the reference point offset to the resrevoir.
-        min_reservoir_height = min(geom["z"])
-        max_reservoir_height = max(geom["z"])
-        min_reservoir_x = min(geom["x"]) + referencepoint["x"]
-        max_reservoir_x = max(geom["x"]) + referencepoint["x"]
-        min_reservoir_y = min(geom["y"]) + referencepoint["y"]
-        max_reservoir_y = max(geom["y"]) + referencepoint["y"]
-        ring = ogr.Geometry(ogr.wkbLinearRing)
-        ring.AddPoint(*transform(min_reservoir_x,
-                                min_reservoir_y,
-                                spatial_reference))
-        ring.AddPoint(*transform(min_reservoir_x,
-                                max_reservoir_y,
-                                spatial_reference))
-        ring.AddPoint(*transform(max_reservoir_x,
-                                max_reservoir_y,
-                                spatial_reference))
-        ring.AddPoint(*transform(max_reservoir_x,
-                                 min_reservoir_y,
-                                 spatial_reference))
-        poly = ogr.Geometry(ogr.wkbPolygon)
-        poly.AddGeometry(ring)
-        poly.CloseRings()
-        poly.FlattenTo2D()
-        self.logger.info('Filtering catalog on latitude and longitude...{}'.format(poly.Area()))
-
-        catalog = catalog[catalog.apply(self.filter_catalog_ogr, axis=1,
-                                        args=[poly])]
-        self.logger.info('After filtering on reservoir, seismic catalog '
-                         f'contains: {len(catalog)} events')
-        self.logger.info('Filtering catalog on depth')
-        max_reservoir_depth = -min_reservoir_height
-        min_reservoir_depth = -max_reservoir_height
-        catalog = self.filter_catalog_depth(
-            catalog, min_reservoir_depth, max_reservoir_depth)
-        self.logger.info('After filtering on depth, seismic catalog '
-                         f'contains: {len(catalog)} events')
-        return catalog
-
-    @staticmethod
-    def filter_catalog_ogr(catalog, geom):
-        event_loc = ogr.CreateGeometryFromWkt(
-            f"POINT ({catalog['lon']} {catalog['lat']})")
-        return geom.Contains(event_loc)
-
-    @staticmethod
-    def filter_catalog_depth(catalog, min_depth, max_depth):
-        """
-        The obspy filtering does not work for the third dimension
-        for unexplained reasons (sfcgal library linked to gdal should support
-        3D functionality, but this does not solve the problem)
-
-        As a simplified work-around, the depth will be filtered by the
-        geometry envelope, which means that the events with depth
-        outside the minimum depth and maximum depth in the reservoir
-        will be excluded. The expected geometry is of a cuboid.
-
-        :param catalog: Catalog of seismic events
-        :type catalog: pandas DataFrame
-        :param geom: geometry of reservoir defined by a polyhedral suface
-            of a cuboid shape.
-        :type geom: ogr Geometry
-
-        :rtype: pandas DataFrame
-        """
-
-        catalog = catalog[catalog.depth < max_depth]
-        catalog = catalog[catalog.depth > min_depth]
-        return catalog
