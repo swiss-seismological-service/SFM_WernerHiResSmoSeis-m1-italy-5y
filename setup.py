@@ -44,9 +44,7 @@ _install_requires = [
     "Flask-SQLAlchemy==2.4.0",
     "scipy==1.3.0",
     "webargs>=5.3.2",
-    "GDAL==2.2.3",
-    "ramsis.utils==0.1",
-    "pyproj", ]
+    "ramsis.utils==0.1"]
 
 _extras_require = {'doc': [
     "sphinx==1.4.1",

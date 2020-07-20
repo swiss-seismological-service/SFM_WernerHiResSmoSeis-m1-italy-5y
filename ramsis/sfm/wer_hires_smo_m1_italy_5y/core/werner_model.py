@@ -1,0 +1,198 @@
+"""
+WerHiResSmoM1Italy5y model code that maps results from an XML file
+to a spatial grid.
+"""
+import os.path as path
+import pandas as pd
+import xml.etree.ElementTree as ET
+import logging
+from numpy import round as nround
+from numpy import arange
+
+LOGGER = 'ramsis.sfm.wer_hires_smo_m1_italy_5y_model'
+NAME = 'WerHiResSmoM1Italy5yMODEL'
+logger = logging.getLogger(LOGGER)
+ABS_PATH = path.dirname(path.realpath(__file__))
+PARENT_ABS_PATH = path.dirname(ABS_PATH)
+MAGNITUDE_COMPLETENESS = 1.0 ### dummy value, find what this should be # noqa
+
+class ResultLocator:
+    def __init__(
+            self, tag_url="{http://www.scec.org/xml-ns/csep/forecast/0.1}",
+            xml_filename="werner.HiResSmoSeis-m1.italy.5yr.xml"):
+        logger.info("Loading xml file.")
+        tree = ET.parse(path.join(ABS_PATH, xml_filename))
+        root = tree.getroot()
+
+        # Depth element of model.
+        cell_depth_element = root.find(
+            f"./{tag_url}forecastData/{tag_url}depthLayer")
+        self.min_depth_km = float(cell_depth_element.get('min'))
+        self.max_depth_km = float(cell_depth_element.get('max'))
+
+        cell_dimension_element = root.find(
+            f"./{tag_url}forecastData/{tag_url}defaultCellDimension")
+        lon_increment = float(cell_dimension_element.get('lonRange'))
+        lat_increment = float(cell_dimension_element.get('latRange'))
+
+        self.lon_add = float(cell_dimension_element.get('lonRange')) / 2.0
+        self.lat_add = float(cell_dimension_element.get('latRange')) / 2.0
+
+        # List of available magnitudes in model.
+        cells = root.findall(
+            f"./{tag_url}forecastData/{tag_url}depthLayer/{tag_url}cell")
+        self.mag_list = [element.get('m') for element in list(cells[0])]
+
+        # Create dataframe containing all information
+        #df_columns = ["lon", "lat"].extend(self.mag_list)
+        dict_list = []
+        for cell in cells:
+            row_dict = {element.get('m'): float(element.text)
+                        for element in cell.iter() if element.get('m')}
+            row_dict["lon"] = float(cell.get('lon'))
+            row_dict["lat"] = float(cell.get('lat'))
+            dict_list.append(row_dict)
+        self.results_df = pd.DataFrame.from_dict(dict_list)
+        logger.info("Successfully loaded xml file")
+
+        self.cell_area = lon_increment * lat_increment
+        self.lon_min = self.results_df['lon'].min()
+        self.lon_max = self.results_df['lon'].max()
+        self.lat_min = self.results_df['lon'].min()
+        self.lat_max = self.results_df['lon'].max()
+
+    def cell_search(self, min_lon, max_lon,
+                    min_lat, max_lat, grid_match=True):
+        result_row_df = pd.DataFrame.fromdict(
+            {"min_lon": min_lon, "max_lon": max_lon,
+                "min_lat": min_lat, "max_lat": max_lat, "overlap": 1.0})
+        if grid_match:
+            # Cater for original csep case in a more time efficient way.
+            lon = min_lon + self.lon_add
+            lat = min_lat + self.lat_add
+            mask_lon = self.results_df['lon'].values == lon
+            mask_lat = self.results_df['lat'].values == lat
+            result = self.results_df[mask_lon & mask_lat]
+            result.drop(columns=['lat', 'lon'], axis=1, inplace=True)
+            assert len(result) in [0, 1], ("One or zeros rows expected: "
+                                           f"{len(result)} rows returned")
+            return pd.concat([result_row_df, result], axis=1)
+        else:
+            result_area = (max_lon - min_lon) * (max_lat - min_lat)
+            # return all cells that have overlapping area
+            mask_grid = (
+                ((self.results_df['lon'].values + self.lon_add) >= min_lon) & # noqa
+                ((self.results_df['lon'].values - self.lon_add) < max_lon) & # noqa
+                ((self.results_df['lat'].values + self.lat_add) >= min_lat) & # noqa
+                ((self.results_df['lat'].values - self.lat_add) < max_lat)) # noqa
+            result = self.results_df[mask_grid].copy()
+            result['overlap'] = 0.0
+            # Calculate fractional overlap of each grid cell with
+            # result area
+            for ind, row in result.iterrows():
+                row_min_lon = row['lon'] - self.lon_add
+                row_max_lon = row['lon'] + self.lon_add
+                row_min_lat = row['lat'] - self.lat_add
+                row_max_lat = row['lat'] + self.lat_add
+                dx = min(max_lon, row_max_lon) - max(min_lon, row_min_lon)
+                dy = min(max_lat, row_max_lat) - max(min_lat, row_min_lat)
+                area = dx * dy
+                if area > 0.0:
+                    row['overlap'] = area / result_area
+                else:
+                    result.drop(index=ind, inplace=True)
+            # find weighted average of all expectation values that
+            # overlap area
+            result[self.mag_list] = result[self.mag_list].multiply(
+                result['overlap'], axis="index")
+            result = result.sum()
+
+            # Around edges, have assumed nearest expectation is valid
+            # Confirm if correct, or if interpolating with zero expectation
+            # value is more correct? In this case, remove next line.
+            result = result / result['overlap']
+            result.drop(columns=['lat', 'lon'], axis=1, inplace=True)
+            assert len(result) in [0, 1], (
+                f"One or zeros rows expected: {len(row)} rows returned")
+            return pd.concat([result_row_df, result], axis=1)
+
+        def validate_reservoir(self, reservoir):
+            depth_list = reservoir['z']
+            assert min(depth_list) >= self.min_depth_km * 1000.
+            assert max(depth_list) <= self.max_depth_km * 1000.
+
+
+def check_grid_match(reservoir_geom, lon_min, lon_max, lon_inc,
+                     lat_min, lat_max, lat_inc):
+    model_lon_list = nround(arange(lon_min, lon_max, lon_inc), 2).\
+        tolist()
+    model_lat_list = nround(arange(lat_min, lat_max, lat_inc), 2).\
+        tolist()
+
+    # compare with reservoir geom
+    compare_lon = reservoir_geom['x'] == model_lon_list
+    compare_lat = reservoir_geom['y'] == model_lat_list
+    # Figure out what to do for non-matching depths
+    # where depth within range, allow and scale expected
+    # values accordingly
+    # where depth values are out of range, return full
+    # expected value?
+    grid_match = True
+    if not compare_lon:
+        logger.warn("input longitudes do not match model longitudes",
+                    "new_grid will be generated")
+        grid_match = False
+    if not compare_lat:
+        logger.warn("input latitudes do not match model latitudes",
+                    "new_grid will be generated")
+        grid_match = False
+    return grid_match
+
+def forecast_scaling(returned_df, mag_column_names):
+    # The database stores values in a values per year format,
+    # so simply divide by 5. Openquake will do the scaling over time.
+    returned_df[mag_column_names] = (returned_df[mag_column_names] * # noqa
+                                     0.2)
+    return returned_df
+
+
+def exec_model(reservoir_geom):
+    """
+    Access model results
+    """
+    # Initialize class from xml data for easy data access
+    result_locator = ResultLocator()
+    result_locator.validate_reservoir(reservoir_geom)
+
+    returned_df = pd.DataFrame(
+        columns=["min_lon", "max_lon", "min_lat", "max_lat", "overlap"].extend(
+            result_locator.mag_list))
+    grid_match = check_grid_match(reservoir_geom,
+                                  returned_df.lon_min,
+                                  returned_df.lon_max,
+                                  returned_df.lon_inc,
+                                  returned_df.lat_min,
+                                  returned_df.lat_max,
+                                  returned_df.lat_inc)
+    logger.info("Check if the grid matches the original model grid: "
+                f"{grid_match}")
+
+    logger.info("Starting results collection for input spatial grid")
+    min_lon = reservoir_geom['x'][0]
+    min_lat = reservoir_geom['y'][0]
+    for lon in reservoir_geom['x'][:-1]:
+        max_lon = lon
+        for lat in reservoir_geom['y'][:-1]:
+            max_lat = lat
+            cell_results = result_locator.cell_search(
+                min_lon, max_lon, min_lat, max_lat, grid_match=grid_match)
+            if cell_results:
+                returned_df.concat(cell_results)
+            min_lat = max_lat
+        min_lon = max_lon
+    # Scale by forecast time from 5 year value to one year value
+    returned_df = forecast_scaling(returned_df,
+                                   result_locator.mag_list)
+    mc = MAGNITUDE_COMPLETENESS
+    logger.info("Successfully returning results from model.")
+    return returned_df, result_locator.mag_list, mc

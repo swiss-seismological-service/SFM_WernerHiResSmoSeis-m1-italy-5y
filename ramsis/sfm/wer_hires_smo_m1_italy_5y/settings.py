@@ -22,7 +22,7 @@ lat_max = 47.85
 lon_increment = 0.1
 lat_increment = 0.1
 z_max = 0.0
-z_min = -30.0
+z_min = -30000.0
 
 mag_start = 4.95
 mag_end = 9.05
