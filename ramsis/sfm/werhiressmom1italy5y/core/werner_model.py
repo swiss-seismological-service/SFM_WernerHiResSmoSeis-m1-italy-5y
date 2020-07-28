@@ -137,14 +137,21 @@ class ResultLocator:
             # overlap area
             result[self.mag_list] = result[self.mag_list].multiply(
                 result['overlap'], axis="index")
-            result = result.sum()
+            # group by dummy value
+            result['dummy'] = 0
+            result = result.groupby('dummy').sum()
+            result.index_name = None
 
+            # If a result cell is only 'touching', the result should not
+            # be returned
+            if result.empty or result['overlap'][0] < 1e-3:
+                return None
             # Around edges, have assumed nearest expectation is valid
             # Confirm if correct, or if interpolating with zero expectation
             # value is more correct? In this case, remove next line.
-            result = result / result['overlap']
+            result = result.div(result['overlap'], axis=0)
             result.drop(columns=['lat', 'lon'], axis=1)
-            assert len(result) in [0, 1], (
+            assert result.shape[0] in [0, 1], (
                 f"One or zeros rows expected: {len(row)} rows returned")
             return pd.concat([result_row_df, result], axis=1)
 
@@ -249,8 +256,9 @@ def exec_model(reservoir_geom):
             min_lat = max_lat
         min_lon = max_lon
 
-    # Scale by forecast time from 5 year value to one year value
-    returned_df = forecast_scaling(returned_df,
+    if not returned_df.empty:
+        # Scale by forecast time from 5 year value to one year value
+        returned_df = forecast_scaling(returned_df,
                                    result_locator.mag_list)
     mc = MAGNITUDE_COMPLETENESS
     logger.info(f"Successfully returning {len(returned_df)} subgeometries "
