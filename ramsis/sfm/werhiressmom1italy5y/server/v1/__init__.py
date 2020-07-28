@@ -11,4 +11,4 @@ API_VERSION = API_VERSION_V1
 blueprint = Blueprint('v1', __name__)
 
 # XXX(damb): Register modules with blueprint.
-from ramsis.sfm.wer_hires_smo_m1_italy_5y.server.v1 import routes, schema  # noqa
+from ramsis.sfm.werhiressmom1italy5y.server.v1 import routes, schema  # noqa

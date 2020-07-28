@@ -128,10 +128,12 @@ def check_grid_match(reservoir_geom, lon_min, lon_max, lon_inc,
         tolist()
     model_lat_list = nround(arange(lat_min, lat_max, lat_inc), 2).\
         tolist()
-
     # compare with reservoir geom
-    compare_lon = reservoir_geom['x'] == model_lon_list
-    compare_lat = reservoir_geom['y'] == model_lat_list
+    lon_points = reservoir_geom['x']
+    lat_points = reservoir_geom['y']
+
+    compare_lon = reservoir_geom == model_lon_list
+    compare_lat = reservoir_geom == model_lat_list
     # Figure out what to do for non-matching depths
     # where depth within range, allow and scale expected
     # values accordingly
@@ -156,13 +158,17 @@ def forecast_scaling(returned_df, mag_column_names):
     return returned_df
 
 
+
+
+# Please see ../server/model_adaptor.py for where this is called
+# What inputs are requires are entirely dependant on model.
 def exec_model(reservoir_geom):
     """
     Access model results
     """
     # Initialize class from xml data for easy data access
     result_locator = ResultLocator()
-    result_locator.validate_reservoir(reservoir_geom)
+    result_locator.validate_reservoir(reservoir)
 
     returned_df = pd.DataFrame(
         columns=["min_lon", "max_lon", "min_lat", "max_lat", "overlap"].extend(
@@ -174,8 +180,7 @@ def exec_model(reservoir_geom):
                                   returned_df.lat_min,
                                   returned_df.lat_max,
                                   returned_df.lat_inc)
-    logger.info("Check if the grid matches the original model grid: "
-                f"{grid_match}")
+    logger.info(f"Check if the grid matches the original model grid: {grid_match}")
 
     logger.info("Starting results collection for input spatial grid")
     min_lon = reservoir_geom['x'][0]
@@ -191,8 +196,8 @@ def exec_model(reservoir_geom):
             min_lat = max_lat
         min_lon = max_lon
     # Scale by forecast time from 5 year value to one year value
-    returned_df = forecast_scaling(returned_df,
-                                   result_locator.mag_list)
+    returned_df = forecast_time_scaling(returned_df,
+                                        result_locator.mag_list)
     mc = MAGNITUDE_COMPLETENESS
     logger.info("Successfully returning results from model.")
     return returned_df, result_locator.mag_list, mc

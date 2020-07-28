@@ -10,8 +10,8 @@ from datetime import timedelta
 from ramsis.sfm.worker import orm
 from ramsis.sfm.worker.model_adaptor import \
     ModelAdaptor as _ModelAdaptor, ModelError, ModelResult
-from ramsis.sfm.wer_hires_smo_m1_italy_5y.core import \
-    wer_hires_smo_m1_italy_5y_model
+from ramsis.sfm.werhiressmom1italy5y.core import \
+    werner_model
 
 # Example of a model adaptor. This takes inputs from the base worker
 # and converts data to something the model can consume. Further validations
@@ -63,7 +63,6 @@ class ModelAdaptor(_ModelAdaptor):
         self.logger.debug(
             'Received model configuration: {!r}'.format(model_config))
 
-        ####
         # Validations on data
         epoch_duration = model_config['epoch_duration']
         forecast_duration = (model_config['datetime_end'] - # noqa
@@ -72,14 +71,16 @@ class ModelAdaptor(_ModelAdaptor):
         if not epoch_duration:
             epoch_duration = forecast_duration
         elif epoch_duration > forecast_duration:
+
             self.logger.info("The epoch duration is less than the "
                              "total time of forecast")
             epoch_duration = forecast_duration
             self.logger.info("The epoch duration has been set to the"
                              f"forcast duration: {forecast_duration} (s)")
         datetime_list = [model_config['datetime_start'] + # noqa
-                         timedelta(epoch_duration * i)
-                         for i in range(forecast_duration // epoch_duration)]
+                         timedelta(seconds=int(epoch_duration * i))
+                         for i in range(
+                             int(forecast_duration // epoch_duration) + 1)]
 
         self.logger.debug('Importing reservoir geometry ...')
         try:
@@ -95,33 +96,29 @@ class ModelAdaptor(_ModelAdaptor):
             (forecast_values,
              mag_list,
              mc,
-             depth_km) = wer_hires_smo_m1_italy_5y_model.exec_model(
-                reservoir_geom, epoch_duration)
+             depth_km) = werner_model.exec_model(
+                reservoir_geom)
         except Exception:
             # sarsonl This is not nice, but we need to raise an error twice
-            # if one occurs in the model, best not to alter this apart to
-            # change the name of the 'a' variable to something that needs
-            # to be populated as a means of checking the result.
+            # if one occurs in the model to get a sensible traceback statement
             err = traceback.print_exc()
-            a = None
+            forecast_values = None
         else:
             err = False
         if err:
             raise
         # Quirk of set-up means that we need to raise another error.
-        if not a:
+        if forecast_values is None:
             raise WerHiResSmoM1Italy5yError(
                 'Error raised in WerHiResSmoM1Italy5y model')
 
         self.logger.debug("Result received from WerHiResSmoM1Italy5y model.")
 
-        ###
-        # Then the processing of results may take place so that they
-        # can be read into the database.
+        # Read values into database
         min_mag = min(mag_list)
         max_mag = max(mag_list)
-        # assume that the increment between bins is static and positive
-        mag_increment = mag_list[1] - mag_list[0]
+        # Assume that the increment between bins is static and positive
+        mag_increment = round(float(mag_list[1]) - float(mag_list[0]), 1)
         subgeoms = []
         for index, row in forecast_values.iterrows():
             # Validate the depths list in the parsing stage.
@@ -134,9 +131,9 @@ class ModelAdaptor(_ModelAdaptor):
                     result_bins = []
                     for mag_bin in mag_list:
                         event_number = row[mag_bin]/depth_fraction
-                        result_bins.append(orm.MagnitudeBin(
+                        result_bins.append(orm.MFDBin(
                             referencemagnitude=mag_bin,
-                            eventnumber=event_number,
+                            eventnumber_value=event_number,
                             # Question: a variance/uncertainty at this level
                             # won't propagate to OQ hazard, so what would
                             # be preferential to store, given the
@@ -144,7 +141,7 @@ class ModelAdaptor(_ModelAdaptor):
                             # uncertainty/variance/confidencelevel/any?
                             eventnumber_uncertainty=np.sqrt(event_number)))
 
-                    mfd_curve = orm.DiscreteMFDCurve(
+                    mfd_curve = orm.DiscreteMFD(
                         minmag=min_mag,
                         maxmag=max_mag,
                         binwidth=mag_increment,
@@ -166,6 +163,9 @@ class ModelAdaptor(_ModelAdaptor):
                     samples=samples)
 
                 subgeoms.append(subgeom)
+
+        # Top level reservoir contains the total dimensions of the
+        # requested search area.
         reservoir = orm.Reservoir(
             x_min=min(reservoir_geom['x']),
             x_max=max(reservoir_geom['x']),

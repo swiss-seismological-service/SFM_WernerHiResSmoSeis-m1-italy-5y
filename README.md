@@ -11,21 +11,21 @@ available as a sister repository.
 
 Follow the installation instructions of the `ramsis.sfm.worker` (gitlab name) or
 `ATLS_model_worker_base` (github name) namespace package.
-You will want to rename the directory `'wer_hires_smo_m1_italy_5y'` and other instances where this tag appears
+You will want to rename the directory `'werhiressmom1italy5y'` and other instances where this tag appears
 to what your chosen model name is (no spaces of course).
 
 Each file that requires alteration should contain instructions on what to alter.
 I would go through the following files in order, renaming the model as required:
 
-* ramsis/sfm/wer_hires_smo_m1_italy_5y/schema.py (model specific inputs defined)
-* ramsis/sfm/wer_hires_smo_m1_italy_5y/settings.py (defaults defined)
-* ramsis/sfm/wer_hires_smo_m1_italy_5y/server/model_adaptor.py (data conversions, formatting and further validation)
-* ramsis/sfm/wer_hires_smo_m1_italy_5y/core/utils.py (utililty functions used by model_adaptor)
-* ramsis/sfm/wer_hires_smo_m1_italy_5y/core/wer_hires_smo_m1_italy_5y_model.py (actual model code should go here)
-* ramsis/sfm/wer_hires_smo_m1_italy_5y/core/error.py (error classes defined)
-* ramsis/sfm/wer_hires_smo_m1_italy_5y/tests/test_reimplementation.py (write tests)
-* ramsis/sfm/wer_hires_smo_m1_italy_5y/server/v1/routes.py (api configuration)
-* ramsis/sfm/wer_hires_smo_m1_italy_5y/server/app.py (app is defined, renaming required)
+* ramsis/sfm/werhiressmom1italy5y/schema.py (model specific inputs defined)
+* ramsis/sfm/werhiressmom1italy5y/settings.py (defaults defined)
+* ramsis/sfm/werhiressmom1italy5y/server/model_adaptor.py (data conversions, formatting and further validation)
+* ramsis/sfm/werhiressmom1italy5y/core/utils.py (utililty functions used by model_adaptor)
+* ramsis/sfm/werhiressmom1italy5y/core/werhiressmom1italy5y_model.py (actual model code should go here)
+* ramsis/sfm/werhiressmom1italy5y/core/error.py (error classes defined)
+* ramsis/sfm/werhiressmom1italy5y/tests/test_reimplementation.py (write tests)
+* ramsis/sfm/werhiressmom1italy5y/server/v1/routes.py (api configuration)
+* ramsis/sfm/werhiressmom1italy5y/server/app.py (app is defined, renaming required)
 * setup.py
 * README.md
 * Any __init__.py files that contain the model name

@@ -12,8 +12,8 @@ import multiprocessing
 
 from ramsis.utils.app import CustomParser, App, AppError
 from ramsis.utils.error import Error, ExitCode
-from ramsis.sfm.wer_hires_smo_m1_italy_5y import __version__, settings
-from ramsis.sfm.wer_hires_smo_m1_italy_5y.server import create_app
+from ramsis.sfm.werhiressmom1italy5y import __version__, settings
+from ramsis.sfm.werhiressmom1italy5y.server import create_app
 from ramsis.sfm.worker import settings as global_settings
 from ramsis.sfm.worker.utils import escape_newline, url
 

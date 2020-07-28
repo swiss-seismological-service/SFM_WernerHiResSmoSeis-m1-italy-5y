@@ -43,7 +43,7 @@ _install_requires = [
     "Flask-RESTful==0.3.7",
     "Flask-SQLAlchemy==2.4.0",
     "scipy==1.3.0",
-    "webargs>=5.3.2",
+    "webargs==5.3.2",
     "ramsis.utils==0.1"]
 
 _extras_require = {'doc': [
@@ -58,15 +58,15 @@ _data_files = [
 
 _entry_points = {
     'console_scripts': [
-        'ramsis-sfm-worker-wer_hires_smo_m1_italy_5y = ramsis.sfm.wer_hires_smo_m1_italy_5y.server.app:main', ]}
+        'ramsis-sfm-worker-wer-hires-smo_m1-italy-5y = ramsis.sfm.werhiressmom1italy5y.server.app:main', ]}
 
-_name = 'ramsis.sfm.wer_hires_smo_m1_italy_5y'
-_version = get_version(os.path.join('ramsis', 'sfm', 'wer_hires_smo_m1_italy_5y', '__init__.py'))
+_name = 'ramsis.sfm.werhiressmom1italy5y'
+_version = get_version(os.path.join('ramsis', 'sfm', 'werhiressmom1italy5y', '__init__.py'))
 _description = ('RT-RAMSIS SFM-Worker (WerHiResSmoM1Italy5y).')
-_packages = ['ramsis.sfm.wer_hires_smo_m1_italy_5y',
-             'ramsis.sfm.wer_hires_smo_m1_italy_5y.server',
-             'ramsis.sfm.wer_hires_smo_m1_italy_5y.server.v1',
-             'ramsis.sfm.wer_hires_smo_m1_italy_5y.core', ]
+_packages = ['ramsis.sfm.werhiressmom1italy5y',
+             'ramsis.sfm.werhiressmom1italy5y.server',
+             'ramsis.sfm.werhiressmom1italy5y.server.v1',
+             'ramsis.sfm.werhiressmom1italy5y.core', ]
 _namespace_packages = ['ramsis', 'ramsis.sfm']
 
 # ----------------------------------------------------------------------------
