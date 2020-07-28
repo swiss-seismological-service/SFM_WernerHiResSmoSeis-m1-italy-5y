@@ -120,6 +120,7 @@ class ModelAdaptor(_ModelAdaptor):
         # Assume that the increment between bins is static and positive
         mag_increment = round(float(mag_list[1]) - float(mag_list[0]), 1)
         subgeoms = []
+        samples = []
         for index, row in forecast_values.iterrows():
             # Validate the depths list in the parsing stage.
             for min_depth, max_depth in \
