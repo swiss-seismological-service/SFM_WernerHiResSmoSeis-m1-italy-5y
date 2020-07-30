@@ -107,7 +107,7 @@ class ResultLocator:
                 return retval
 
         else:
-            result_area = (max_lon - min_lon) * (max_lat - min_lat)
+            #result_area = (max_lon - min_lon) * (max_lat - min_lat)
             # return all cells that have overlapping area
             mask_grid = (
                 ((self.results_df['lon'].values + self.lon_add) >= min_lon) & # noqa
@@ -130,14 +130,15 @@ class ResultLocator:
                 dy = min(max_lat, row_max_lat) - max(min_lat, row_min_lat)
                 area = dx * dy
                 if area > 0.0:
-                    row['overlap'] = area / result_area
+                    # Calculate the fraction of the cell that is occupied
+                    # by the result cell.
+                    row['overlap'] = area / self.cell_area
                 else:
                     result.drop(index=ind, inplace=True)
-            # find weighted average of all expectation values that
-            # overlap area
+            # Calculate the contribution to the result from each cell.
             result[self.mag_list] = result[self.mag_list].multiply(
                 result['overlap'], axis="index")
-            # group by dummy value
+            # group by dummy value to maintain dataframe shape and sum rows
             result['dummy'] = 0
             result = result.groupby('dummy').sum()
             result.index_name = None
@@ -147,9 +148,6 @@ class ResultLocator:
             if result.empty or result['overlap'][0] < 1e-3:
                 return None
             # Around edges, have assumed nearest expectation is valid
-            # Confirm if correct, or if interpolating with zero expectation
-            # value is more correct? In this case, remove next line.
-            result = result.div(result['overlap'], axis=0)
             result.drop(columns=['lat', 'lon'], axis=1)
             assert result.shape[0] in [0, 1], (
                 f"One or zeros rows expected: {len(row)} rows returned")
@@ -259,7 +257,7 @@ def exec_model(reservoir_geom):
     if not returned_df.empty:
         # Scale by forecast time from 5 year value to one year value
         returned_df = forecast_scaling(returned_df,
-                                   result_locator.mag_list)
+                                       result_locator.mag_list)
     mc = MAGNITUDE_COMPLETENESS
     logger.info(f"Successfully returning {len(returned_df)} subgeometries "
                 "from model.")
